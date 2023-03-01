@@ -1,4 +1,5 @@
 import '@/styles/globals.css'
+import 'react-loading-skeleton/dist/skeleton.css'
 import { Header } from '@components/organisms/Header'
 import { store } from '@redux/store'
 import type { AppProps } from 'next/app'

@@ -1,10 +1,20 @@
 import { getVideosOnSearch } from '@api/getVideosSearch'
 import { onChangeSearch, onChangeHistoric } from '@redux/features/search'
-import { onChangeVideos, onCleanVideos } from '@redux/features/videos'
+import {
+  handleLoading,
+  onChangeVideos,
+  onCleanVideos
+} from '@redux/features/videos'
 import { RootState } from '@redux/store'
 import { useRouter } from 'next/router'
 import { ClockCounterClockwise, MagnifyingGlass } from 'phosphor-react'
-import { ChangeEvent, MouseEvent, useEffect, useState } from 'react'
+import {
+  ChangeEvent,
+  KeyboardEvent,
+  MouseEvent,
+  useEffect,
+  useState
+} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styles from './inputSearch.module.scss'
 
@@ -61,20 +71,39 @@ export const InputSearch = () => {
   }
 
   const onSearchVideos = async () => {
+    dispatch(handleLoading(true))
     handleSearchHistoric()
     dispatch(onCleanVideos())
-    getVideosOnSearch(searchInput).then((res) => {
-      dispatch(onChangeVideos(res))
-    })
+    getVideosOnSearch(searchInput)
+      .then((res) => {
+        dispatch(onChangeVideos(res))
+        dispatch(handleLoading(false))
+      })
+      .catch(() => {
+        dispatch(handleLoading(false))
+      })
     router.push('/')
   }
 
   const onSelectHistoricSearch = (historic: string) => {
+    dispatch(handleLoading(true))
     dispatch(onCleanVideos())
     dispatch(onChangeSearch(historic))
-    getVideosOnSearch(historic).then((res) => {
-      dispatch(onChangeVideos(res))
-    })
+    getVideosOnSearch(historic)
+      .then((res) => {
+        dispatch(onChangeVideos(res))
+        dispatch(handleLoading(false))
+      })
+      .catch(() => {
+        dispatch(handleLoading(false))
+      })
+  }
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      onSearchVideos()
+      document.getElementById('input-search')?.blur()
+    }
   }
 
   return (
@@ -84,6 +113,7 @@ export const InputSearch = () => {
         className={styles.input}
         placeholder="Pesquisar"
         value={searchInput}
+        onKeyDown={handleKeyDown}
         onFocus={() => setIsSearching(true)}
         onBlur={() => setIsSearching(false)}
         onChange={(e: ChangeEvent<HTMLInputElement>) => {
