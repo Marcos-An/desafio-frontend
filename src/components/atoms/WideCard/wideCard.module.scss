@@ -1,0 +1,51 @@
+.videoContainer {
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  transition: ease-in-out 0.2s;
+  border-radius: 10px;
+  display: flex;
+  &:hover {
+    filter: brightness(1.1);
+    background-color: var(--black-raised-background);
+  }
+}
+
+.content {
+  gap: 1rem;
+  padding-left: 0.5rem;
+  p {
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    white-space: normal;
+  }
+
+  .title {
+    margin: 0rem;
+    margin-bottom: 0.4rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  .chanel {
+    font-size: 0.8rem;
+    margin: 0.1rem;
+    color: var(--text-secondary);
+  }
+}
+
+.imageContainer {
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+  min-width: 170px;
+  min-height: 100px;
+  transition: 0.2s ease-out 0.6s;
+}
+
+@media (min-width: 426px) and (max-width: 768px) {
+  .imageContainer {
+    height: 17vw;
+  }
+}

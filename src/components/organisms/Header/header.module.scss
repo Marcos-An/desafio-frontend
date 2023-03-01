@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  background-color: var(--black-base-background);
+  padding: 1rem;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+@media (min-width: 320px) and (max-width: 425px) {
+  .content {
+    img {
+      width: 100px;
+    }
+  }
+}

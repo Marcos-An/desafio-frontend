@@ -1,0 +1,96 @@
+.container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 45%;
+}
+
+.historicContainer {
+  width: 90%;
+  z-index: 99999;
+  position: absolute;
+  top: 115%;
+  background-color: var(--text-primary);
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 20%);
+  border-radius: 10px;
+  padding: 0.6rem 0rem;
+
+  color: var(--text-black);
+
+  .historicItem {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0.5rem;
+    max-width: 100%;
+    h5 {
+      margin: 0rem 0rem 0rem 1rem;
+    }
+    span {
+      color: var(--call-to-action);
+      font-size: 0.8rem;
+      margin-left: auto;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    &:hover {
+      background-color: var(--black-search-background-hover);
+    }
+  }
+}
+
+.input {
+  border-radius: 1.5rem 0rem 0rem 1.5rem;
+  padding: 0.7rem 1rem;
+  width: 100%;
+  border: 1px solid var(--black-menu-background);
+  border-right: 0px;
+
+  background-color: var(--black-base-background);
+
+  color: var(--text-primary);
+
+  &::placeholder {
+    font-size: 1rem;
+  }
+
+  &:focus {
+    border: 1px solid var(--call-to-action);
+  }
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--black-raised-background);
+  border: 1px solid var(--black-menu-background);
+  padding: 0.54rem 1.5rem;
+
+  border-radius: 0rem 1.5rem 1.5rem 0rem;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 425px) {
+  .container {
+    width: 70%;
+  }
+
+  .historicContainer {
+    width: 100vw;
+    left: -48.7%;
+    border-radius: 0px 0px 10px 10px;
+  }
+}
+
+@media (min-width: 426px) and (max-width: 768px) {
+  .container {
+    width: 70%;
+  }
+}

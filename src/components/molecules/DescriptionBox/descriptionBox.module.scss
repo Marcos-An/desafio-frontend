@@ -1,0 +1,45 @@
+.box {
+  width: 100%;
+  margin-top: 1rem;
+  background-color: var(--black-additive-background);
+  border-radius: 1rem;
+  padding: 0.5rem 1rem;
+
+  &:hover {
+    background-color: var(--black-additive-background-hover);
+  }
+}
+
+.seeMoreButton {
+  cursor: pointer;
+  font-size: 0.87rem;
+  font-weight: 600;
+}
+
+.descriptionBoxContainer {
+  @extend .box;
+  height: fit-content;
+
+  .counterInfos {
+    display: flex;
+    gap: 0.4rem;
+    color: var(--text-secondary);
+    p {
+      word-break: break-word;
+      font-size: 0.9rem;
+      line-height: 0.8rem;
+      font-weight: 600;
+      margin: 0.5rem 0rem 0rem 0rem;
+    }
+  }
+
+  .description {
+    margin: 0.5rem 0rem;
+    font-size: 0.9rem;
+
+    a {
+      cursor: pointer;
+      color: var(--call-to-action) !important;
+    }
+  }
+}

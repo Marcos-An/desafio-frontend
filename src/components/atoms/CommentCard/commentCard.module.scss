@@ -1,0 +1,47 @@
+.container {
+  margin-bottom: 2rem;
+}
+
+.profilePicture {
+  position: relative;
+  overflow: hidden;
+  border-radius: 100%;
+  min-height: 36px;
+  min-width: 36px;
+  margin-right: 16px;
+}
+
+.commentWrapper {
+  h4,
+  p {
+    margin: 0;
+  }
+
+  h4 {
+    font-size: 0.81rem;
+
+    span {
+      color: var(--text-secondary);
+      font-weight: 400;
+      margin-left: 0.3rem;
+    }
+  }
+  p {
+    font-size: 0.875rem;
+  }
+}
+
+.contentWrapper {
+  display: flex;
+  align-items: flex-start;
+}
+
+.likesContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.7rem;
+  margin-left: 50px;
+
+  font-size: 0.81rem;
+}

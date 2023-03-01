@@ -1,0 +1,34 @@
+.container {
+  padding: 0rem 1rem;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.videoGrid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0rem;
+  justify-content: center;
+}
+
+@media (min-width: 320px) and (max-width: 425px) {
+  .container {
+    padding: 0rem 0rem;
+  }
+  .videoGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 426px) and (max-width: 768px) {
+  .videoGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1050px) {
+  .videoGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
