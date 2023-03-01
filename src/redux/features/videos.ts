@@ -19,18 +19,19 @@ export const videosSlice = createSlice({
   name: 'videos',
   initialState,
   reducers: {
+    onCleanVideos: (state) => {
+      state.videosSearched.items = []
+      state.videosSearched.nextPageToken = ''
+    },
     onChangeVideos: (state, action: PayloadAction<VideosSearchedType>) => {
       const newItems = [...state.videosSearched.items, ...action.payload.items]
 
       state.videosSearched.items = newItems
       state.videosSearched.nextPageToken = action.payload.nextPageToken
-    },
-    onSelectVideo: (state, action: PayloadAction<string>) => {
-      state.currentSelectedVideoId = action.payload
     }
   }
 })
 
-export const { onChangeVideos } = videosSlice.actions
+export const { onChangeVideos, onCleanVideos } = videosSlice.actions
 
 export default videosSlice.reducer

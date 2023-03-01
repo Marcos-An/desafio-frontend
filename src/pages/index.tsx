@@ -13,7 +13,7 @@ export default function Home() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (!videos.items.length) {
+    if (!videos.items.length && searchInput === '') {
       getVideosOnSearch(searchInput).then((res) => {
         dispatch(onChangeVideos(res))
       })
@@ -36,6 +36,7 @@ export default function Home() {
           fetchMoreItems()
         }
       }
+
       window.addEventListener('scroll', handleScroll)
       return () => window.removeEventListener('scroll', handleScroll)
     }

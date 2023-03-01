@@ -1,6 +1,6 @@
 import { getVideosOnSearch } from '@api/getVideosSearch'
 import { onChangeSearch, onChangeHistoric } from '@redux/features/search'
-import { onChangeVideos } from '@redux/features/videos'
+import { onChangeVideos, onCleanVideos } from '@redux/features/videos'
 import { RootState } from '@redux/store'
 import { useRouter } from 'next/router'
 import { ClockCounterClockwise, MagnifyingGlass } from 'phosphor-react'
@@ -60,19 +60,17 @@ export const InputSearch = () => {
     setIsSearching(true)
   }
 
-  const onSearchVideos = () => {
-    router.push('/')
+  const onSearchVideos = async () => {
     handleSearchHistoric()
+    dispatch(onCleanVideos())
     getVideosOnSearch(searchInput).then((res) => {
       dispatch(onChangeVideos(res))
     })
+    router.push('/')
   }
 
-  const onSelectHistoricSearch = (
-    historic: string,
-    e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>
-  ) => {
-    e.stopPropagation()
+  const onSelectHistoricSearch = (historic: string) => {
+    dispatch(onCleanVideos())
     dispatch(onChangeSearch(historic))
     getVideosOnSearch(historic).then((res) => {
       dispatch(onChangeVideos(res))
@@ -85,7 +83,7 @@ export const InputSearch = () => {
         id="input-search"
         className={styles.input}
         placeholder="Pesquisar"
-        value={searchInput && searchInput}
+        value={searchInput}
         onFocus={() => setIsSearching(true)}
         onBlur={() => setIsSearching(false)}
         onChange={(e: ChangeEvent<HTMLInputElement>) => {
@@ -102,9 +100,12 @@ export const InputSearch = () => {
             <div
               key={item}
               className={styles.historicItem}
-              onClick={(e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>) =>
-                onSelectHistoricSearch(item, e)
-              }
+              onMouseDown={(
+                e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>
+              ) => {
+                e.stopPropagation()
+                onSelectHistoricSearch(item)
+              }}
             >
               <ClockCounterClockwise size={20} />
               <h5>{item}</h5>
@@ -112,7 +113,10 @@ export const InputSearch = () => {
               <span
                 onMouseDown={(
                   e: MouseEvent<HTMLSpanElement, globalThis.MouseEvent>
-                ) => onRemoveSearchHistoric(index, e)}
+                ) => {
+                  e.stopPropagation()
+                  onRemoveSearchHistoric(index, e)
+                }}
               >
                 Remover
               </span>
