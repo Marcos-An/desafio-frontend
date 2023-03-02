@@ -4,59 +4,69 @@ import { useEffect, useState } from 'react'
 import { getVideosOnSearch } from '@api/getVideosSearch'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@redux/store'
-import { handleLoading, onChangeVideos } from '@redux/features/videos'
+import { onChangeVideos } from '@redux/features/videos'
 import { VideoInfoTreaded } from '@/types/videos'
-import { SkeletonCard } from '@components/atoms/SkeletonCard'
+import { SkeletonCard } from '@components/atoms/Skeletons/SkeletonCard'
 import { loadingArray } from '@utils/data'
+import Head from 'next/head'
+import { VideoGridContainer } from '@components/atoms/VideoGridContainer'
+import { handleScroll } from '@utils/handleScroll'
+import InfiniteScroll from 'react-infinite-scroll-component'
 
 export default function Home() {
   const searchInput = useSelector((state: RootState) => state.search.value)
-  const isLoading = useSelector((state: RootState) => state.videos.isLoading)
+  const [isLoading, setIsLoading] = useState(true)
   const videos = useSelector((state: RootState) => state.videos.videosSearched)
-
   const dispatch = useDispatch()
 
+  const handleIsLoading = (status: boolean) => {
+    setIsLoading(status)
+  }
+
   useEffect(() => {
-    dispatch(handleLoading(true))
     if (!videos.items.length && searchInput === '') {
+      handleIsLoading(true)
       getVideosOnSearch(searchInput)
         .then((res) => {
           dispatch(onChangeVideos(res))
-          dispatch(handleLoading(false))
+          handleIsLoading(false)
         })
-        .catch(() => dispatch(handleLoading(false)))
+        .catch(() => handleIsLoading(false))
     }
   }, [])
 
-  useEffect(() => {
-    const fetchMoreItems = () => {
-      getVideosOnSearch(searchInput, videos.nextPageToken).then((res) => {
-        dispatch(onChangeVideos(res))
-      })
-    }
-
-    const handleScroll = () => {
-      const windowHeight = window.innerHeight
-      const documentHeight = document.documentElement.offsetHeight
-      const scrollTop = document.documentElement.scrollTop
-      if (windowHeight + scrollTop >= documentHeight) {
-        fetchMoreItems()
-      }
-
-      window.addEventListener('scroll', handleScroll)
-      return () => window.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
+  const fetchMoreItems = () => {
+    getVideosOnSearch(searchInput, videos.nextPageToken, 20).then((res) => {
+      dispatch(onChangeVideos(res))
+    })
+  }
 
   return (
     <div className={styles.container}>
-      <div className={styles.videoGrid}>
-        {isLoading
-          ? loadingArray.map((_, index) => <SkeletonCard key={index} />)
-          : videos.items.map((video: VideoInfoTreaded, index) => (
+      <Head>
+        <title>YouTube</title>
+      </Head>
+      {isLoading ? (
+        <VideoGridContainer>
+          {loadingArray.map((_, index) => (
+            <SkeletonCard key={index} />
+          ))}
+        </VideoGridContainer>
+      ) : (
+        <InfiniteScroll
+          className={styles.infiniteScroll}
+          dataLength={videos.items.length}
+          next={fetchMoreItems}
+          hasMore={videos.nextPageToken !== ''}
+          loader={null}
+        >
+          <VideoGridContainer>
+            {videos.items.map((video: VideoInfoTreaded, index) => (
               <Card video={video} key={index} />
             ))}
-      </div>
+          </VideoGridContainer>
+        </InfiniteScroll>
+      )}
 
       {videos.items.length === 0 && searchInput !== '' && !isLoading ? (
         <h3> Não encontramos resultados para essa pesquisa</h3>

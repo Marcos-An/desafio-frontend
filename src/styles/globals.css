@@ -40,3 +40,7 @@ button:hover {
 * {
   box-sizing: border-box;
 }
+
+.infinite-scroll-component {
+  overflow: visible !important;
+}

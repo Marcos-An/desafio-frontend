@@ -38,11 +38,13 @@ export async function getVideosOnSearch(
         id: channelIds.join(',')
       }
     })
+
     const videoData = videoResponse.data.items.map((item: any) => {
       const channelItem = channelResponse.data.items.find(
         (channel: any) => channel.id === item.snippet.channelId
       )
 
+      console.log(item.snippet.thumbnails)
       return {
         videoId: item.id,
         channelName: item.snippet.channelTitle,

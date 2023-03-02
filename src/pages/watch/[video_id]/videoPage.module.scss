@@ -41,6 +41,10 @@
 
     .channelName {
       font-weight: 600;
+
+      &:hover {
+        cursor: pointer;
+      }
     }
 
     .subscriberCount {

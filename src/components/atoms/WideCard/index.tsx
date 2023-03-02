@@ -18,8 +18,8 @@ export default function WideCard({ video }: { video: VideoInfoTreaded }) {
 
       <div className={styles.content}>
         <p className={styles.title}>{video.title}</p>
-        <p className={styles.chanel}> {video.channelName}</p>
-        <p className={styles.chanel}>
+        <p className={styles.channel}> {video.channelName}</p>
+        <p className={styles.channel}>
           {`${formatCounter(video.videolikes)} visualizações - `}
           {formatVideoTimePosted(video.uploadDate)}
         </p>

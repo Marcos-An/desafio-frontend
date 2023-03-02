@@ -19,6 +19,7 @@ export interface Comments {
 
 export interface VideoInfo {
   videoId: string
+  channelId: string
   channelName: string
   channelProfilePicture: string
   title: string

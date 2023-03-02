@@ -26,7 +26,12 @@ export const CommentCard = ({
     <div className={styles.container}>
       <div className={styles.contentWrapper}>
         <div className={styles.profilePicture}>
-          <Image src={authorProfileImageUrl} fill alt={'thumb'} sizes="100vw" />
+          <Image
+            src={authorProfileImageUrl}
+            fill
+            alt={'thumb'}
+            sizes="(max-width: 500px) 100px"
+          />
         </div>
         <div className={styles.commentWrapper}>
           <h4>

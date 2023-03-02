@@ -6,43 +6,49 @@ export async function getRelatedVideos(
   maxResults: number = 16
 ): Promise<VideoInfoTreaded[]> {
   try {
-    const response = await gapi.get('/search', {
-      params: {
-        relatedToVideoId: videoId,
-        type: 'video',
-        maxResults: maxResults.toString()
-      }
-    })
+    const response = await gapi
+      .get('/search', {
+        params: {
+          relatedToVideoId: videoId,
+          type: 'video',
+          maxResults: maxResults.toString()
+        }
+      })
+      .then(({ data }) => data)
 
-    const videoIds = response.data.items.map((item: any) => item.id.videoId)
+    const videoIds = response.items.map((item: any) => item.id.videoId)
 
-    const videoResponse = await gapi.get('/videos?', {
-      params: {
-        part: 'snippet,statistics',
-        id: videoIds.join(','),
-        regionCode: 'BR'
-      }
-    })
+    const videoResponse = await gapi
+      .get('/videos?', {
+        params: {
+          part: 'snippet,statistics',
+          id: videoIds.join(','),
+          regionCode: 'BR'
+        }
+      })
+      .then(({ data }) => data)
 
-    const channelIds = videoResponse.data.items.map(
+    const channelIds = videoResponse.items.map(
       (item: any) => item.snippet.channelId
     )
 
-    const channelResponse = await gapi.get('/channels', {
-      params: {
-        part: 'snippet',
-        id: channelIds.join(',')
-      }
-    })
+    const channelResponse = await gapi
+      .get('/channels', {
+        params: {
+          part: 'snippet',
+          id: channelIds.join(',')
+        }
+      })
+      .then(({ data }) => data)
 
-    const videoData = videoResponse.data.items.map((item: any) => {
-      const channelItem = channelResponse.data.items.find(
+    const videoData = videoResponse.items.map((item: any) => {
+      const channelItem = channelResponse.items.find(
         (channel: any) => channel.id === item.snippet.channelId
       )
 
       return {
         videoId: item.id,
-        nextPage: response.data.nextPageToken,
+        nextPage: response.nextPageToken,
         channelName: item.snippet.channelTitle,
         channelProfilePicture: channelItem.snippet.thumbnails.default.url,
         title: item.snippet.title,

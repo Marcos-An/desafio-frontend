@@ -16,6 +16,7 @@ export default function Card({ video }: { video: VideoInfoTreaded }) {
         <Image
           src={video.thumbnail}
           fill
+          quality={'100'}
           alt={'video'}
           sizes="(max-width: 500px) 100px"
           priority
@@ -23,7 +24,7 @@ export default function Card({ video }: { video: VideoInfoTreaded }) {
       </div>
 
       <div className={styles.content}>
-        <div className={styles.chanelAvatarContainer}>
+        <div className={styles.channelAvatarContainer}>
           <Image
             src={video.channelProfilePicture}
             fill
@@ -33,8 +34,8 @@ export default function Card({ video }: { video: VideoInfoTreaded }) {
         </div>
         <div>
           <p className={styles.title}>{video.title}</p>
-          <p className={styles.chanel}> {video.channelName}</p>
-          <p className={styles.chanel}>
+          <p className={styles.channel}> {video.channelName}</p>
+          <p className={styles.channel}>
             {`${formatCounter(video.videolikes)} visualizações - `}
             {formatVideoTimePosted(video.uploadDate)}
           </p>

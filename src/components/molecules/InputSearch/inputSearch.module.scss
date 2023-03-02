@@ -25,6 +25,10 @@
     max-width: 100%;
     h5 {
       margin: 0rem 0rem 0rem 1rem;
+
+      &:hover {
+        cursor: default;
+      }
     }
     span {
       color: var(--call-to-action);

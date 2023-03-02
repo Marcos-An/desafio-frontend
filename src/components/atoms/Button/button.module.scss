@@ -1,0 +1,23 @@
+.genericButton {
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 0.4rem;
+  color: var(--text-primary);
+  background-color: var(--black-raised-background);
+
+  p {
+    margin: 0;
+    font-size: 0.87rem;
+  }
+
+  &:hover {
+    filter: brightness(1.17);
+  }
+}
+
+.genericButtonActive {
+  @extend .genericButton;
+
+  color: var(--text-black);
+  background-color: var(--black-search-background-hover);
+}

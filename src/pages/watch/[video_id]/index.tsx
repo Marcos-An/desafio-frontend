@@ -23,6 +23,7 @@ export default function VideoPage() {
   )
   const [relatedVideos, setRelatedVideos] = useState<VideoInfoTreaded[]>()
   const windowWidth = useWindowWidth()
+
   const { video_id } = router.query
   useEffect(() => {
     if (video_id) {
@@ -43,15 +44,18 @@ export default function VideoPage() {
       window.scrollTo(0, 0)
     }
   }
+  const goToChannel = () => {
+    router.push(`/channel/${videoInfo.currentVideo.channelId}`)
+  }
 
   if (!videoInfo.currentVideo) {
-    return <h4>loading</h4>
+    return null
   }
 
   return (
     <div className={styles.container}>
       <Head>
-        <title>{videoInfo.currentVideo.channelName}</title>
+        <title>{videoInfo.currentVideo.title}</title>
       </Head>
       <div>
         <div className={styles.player}>
@@ -60,7 +64,7 @@ export default function VideoPage() {
         <div className={styles.channelInfoContainer}>
           <h5 className={styles.title}>{videoInfo.currentVideo.title}</h5>
           <div className={styles.infosWrapper}>
-            <div className={styles.channelProfilePicture}>
+            <div className={styles.channelProfilePicture} onClick={goToChannel}>
               <Image
                 src={videoInfo.currentVideo.channelProfilePicture}
                 fill
@@ -69,7 +73,7 @@ export default function VideoPage() {
               />
             </div>
             <div className={styles.channelInfos}>
-              <p className={styles.channelName}>
+              <p className={styles.channelName} onClick={goToChannel}>
                 {videoInfo.currentVideo.channelName}
               </p>
               <span className={styles.subscriberCount}>
