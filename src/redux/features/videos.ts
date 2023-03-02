@@ -4,10 +4,12 @@ import { VideoInfoTreaded, VideosSearchedType } from '@/types/videos'
 import { uniqBy } from 'lodash'
 
 export interface VideosState {
+  isLoading: boolean
   videosSearched: VideosSearchedType
 }
 
 const initialState: VideosState = {
+  isLoading: true,
   videosSearched: {
     nextPageToken: '',
     items: [] as VideoInfoTreaded[]
@@ -18,6 +20,9 @@ export const videosSlice = createSlice({
   name: 'videos',
   initialState,
   reducers: {
+    handleLoading: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload
+    },
     onCleanVideos: (state) => {
       state.videosSearched.items = []
       state.videosSearched.nextPageToken = ''
@@ -31,6 +36,7 @@ export const videosSlice = createSlice({
   }
 })
 
-export const { onChangeVideos, onCleanVideos } = videosSlice.actions
+export const { onChangeVideos, onCleanVideos, handleLoading } =
+  videosSlice.actions
 
 export default videosSlice.reducer

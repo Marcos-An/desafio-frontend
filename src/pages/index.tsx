@@ -1,37 +1,32 @@
 import styles from '../styles/Home.module.scss'
 import Card from '@components/atoms/Card'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { getVideosOnSearch } from '@api/getVideosSearch'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@redux/store'
-import { onChangeVideos } from '@redux/features/videos'
+import { handleLoading, onChangeVideos } from '@redux/features/videos'
 import { VideoInfoTreaded } from '@/types/videos'
 import { SkeletonCard } from '@components/atoms/Skeletons/SkeletonCard'
 import { loadingArray } from '@utils/data'
 import Head from 'next/head'
 import { VideoGridContainer } from '@components/atoms/VideoGridContainer'
-import { handleScroll } from '@utils/handleScroll'
 import InfiniteScroll from 'react-infinite-scroll-component'
 
 export default function Home() {
   const searchInput = useSelector((state: RootState) => state.search.value)
-  const [isLoading, setIsLoading] = useState(true)
+  const isLoading = useSelector((state: RootState) => state.videos.isLoading)
   const videos = useSelector((state: RootState) => state.videos.videosSearched)
   const dispatch = useDispatch()
 
-  const handleIsLoading = (status: boolean) => {
-    setIsLoading(status)
-  }
-
   useEffect(() => {
     if (!videos.items.length && searchInput === '') {
-      handleIsLoading(true)
+      dispatch(handleLoading(true))
       getVideosOnSearch(searchInput)
         .then((res) => {
           dispatch(onChangeVideos(res))
-          handleIsLoading(false)
+          dispatch(handleLoading(false))
         })
-        .catch(() => handleIsLoading(false))
+        .catch(() => dispatch(handleLoading(false)))
     }
   }, [])
 
