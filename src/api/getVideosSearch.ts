@@ -44,7 +44,6 @@ export async function getVideosOnSearch(
         (channel: any) => channel.id === item.snippet.channelId
       )
 
-      console.log(item.snippet.thumbnails)
       return {
         videoId: item.id,
         channelName: item.snippet.channelTitle,
