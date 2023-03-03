@@ -1,5 +1,5 @@
 import { getVideoInfos } from '@api/getVideoInfos'
-import { YouTubePlayer } from '@components/molecules/YouTubePlayer'
+import { YouTubePlayer } from '@components/atoms/YouTubePlayer'
 import { CurrentVideoInfo, VideoInfoTreaded } from '@/types/videos'
 import Image from 'next/image'
 import { useRouter } from 'next/router'

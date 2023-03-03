@@ -9,13 +9,13 @@
   }
 }
 
-@media (min-width: 320px) and (max-width: 425px) {
+@media (min-width: 320px) and (max-width: 450px) {
   .container {
     padding: 0rem 0rem;
   }
 }
 
-@media (max-width: 1599px) {
+@media (min-width: 451px) and (max-width: 1599px) {
   .container {
     padding: 0rem 1rem;
   }
