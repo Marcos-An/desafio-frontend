@@ -1,3 +1,4 @@
+import React from 'react'
 import { getVideoInfos } from '@api/getVideoInfos'
 import { YouTubePlayer } from '@components/atoms/YouTubePlayer'
 import { CurrentVideoInfo, VideoInfoTreaded } from '@/types/videos'
@@ -31,7 +32,7 @@ export default function VideoPage() {
         setVideoInfos(res)
       })
 
-      getRelatedVideos(video_id as string).then((res) => {
+      getRelatedVideos(video_id as string, 16).then((res) => {
         setRelatedVideos(res)
       })
     }
@@ -62,7 +63,9 @@ export default function VideoPage() {
           <YouTubePlayer videoId={video_id as string} />
         </div>
         <div className={styles.channelInfoContainer}>
-          <h5 className={styles.title}>{videoInfo.currentVideo.title}</h5>
+          <h5 className={styles.title} data-testid="video-title">
+            {videoInfo.currentVideo.title}
+          </h5>
           <div className={styles.infosWrapper}>
             <div className={styles.channelProfilePicture} onClick={goToChannel}>
               <Image
@@ -73,7 +76,11 @@ export default function VideoPage() {
               />
             </div>
             <div className={styles.channelInfos}>
-              <p className={styles.channelName} onClick={goToChannel}>
+              <p
+                className={styles.channelName}
+                onClick={goToChannel}
+                data-testid="channel-title"
+              >
                 {videoInfo.currentVideo.channelName}
               </p>
               <span className={styles.subscriberCount}>
@@ -118,11 +125,12 @@ export default function VideoPage() {
             <br />
           </div>
         )}
-        <div className={styles.commentsWrapper}>
+        <div className={styles.commentsWrapper} data-testid="comments-wrapper">
           <p>{formatNumber(videoInfo.currentVideo.commentCount)} Comentários</p>
           <br />
           {videoInfo.comments.map((comment) => (
             <CommentCard
+              key={comment.updatedAt}
               authorDisplayName={comment.authorDisplayName}
               authorProfileImageUrl={comment.authorProfileImageUrl}
               comment={comment.comment}

@@ -1,3 +1,4 @@
+import React from 'react'
 import styles from './skeletonCard.module.scss'
 import Skeleton from 'react-loading-skeleton'
 

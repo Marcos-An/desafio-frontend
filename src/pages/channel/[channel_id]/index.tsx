@@ -1,9 +1,10 @@
+import React from 'react'
 import { getChannelInfos } from '@api/getChannelInfos'
 import { VideoInfoTreaded } from '@/types/videos'
 import { useEffect, useState } from 'react'
 import styles from './channelPage.module.scss'
 import { useRouter } from 'next/router'
-import { ChannelInfos, Videos } from '@/types/channel'
+import { ChannelInfos } from '@/types/channel'
 import { formatCounter } from '@utils/format'
 import Image from 'next/image'
 import { VideoGridContainer } from '@components/atoms/VideoGridContainer'
@@ -124,9 +125,19 @@ export default function ChannelPage() {
             />
           </div>
           <div className={styles.channelInfos}>
-            <p className={styles.channelName}>{channelInfos.channelName}</p>
-            <p className={styles.subscriberCount}>{channelInfos.customUrl}</p>
-            <p className={styles.subscriberCount}>
+            <p className={styles.channelName} data-testid="channelName">
+              {channelInfos.channelName}
+            </p>
+            <p
+              className={styles.subscriberCount}
+              data-testid="channelCustomUrl"
+            >
+              {channelInfos.customUrl}
+            </p>
+            <p
+              className={styles.subscriberCount}
+              data-testid="channelSubscribers"
+            >
               {formatCounter(channelInfos.subscriberCount)} inscritos
             </p>
           </div>

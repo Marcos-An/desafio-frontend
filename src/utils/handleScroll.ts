@@ -1,4 +1,8 @@
-export const handleScroll = (callback: Function) => {
+export const handleScroll = (
+  callback = () => {
+    return {}
+  }
+) => {
   const windowHeight = window.innerHeight
   const documentHeight = document.documentElement.offsetHeight
   const scrollTop = document.documentElement.scrollTop

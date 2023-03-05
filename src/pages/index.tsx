@@ -1,4 +1,5 @@
-import styles from '../styles/Home.module.scss'
+import React from 'react'
+import styles from './home.module.scss'
 import Card from '@components/atoms/Card'
 import { useEffect } from 'react'
 import { getVideosOnSearch } from '@api/getVideosSearch'
@@ -64,7 +65,10 @@ export default function Home() {
       )}
 
       {videos.items.length === 0 && searchInput !== '' && !isLoading ? (
-        <h3> Não encontramos resultados para essa pesquisa</h3>
+        <h3 className={styles.noFindText}>
+          {' '}
+          Não encontramos resultados para essa pesquisa
+        </h3>
       ) : null}
     </div>
   )

@@ -1,12 +1,18 @@
 import { gapi } from '@api/axios'
 import { Comments, CurrentVideoInfo, VideoInfo } from '@/types/videos'
+import { ResponseVideosItems } from '@/types/responseVideos'
+import { ResponseChannelsItems } from '@/types/responseChannels'
+import {
+  ResponseCommentsThreads,
+  ResponseCommentsThreadsItems
+} from '@/types/responseCommentsThreads'
 
 export async function getVideoInfos(id: string): Promise<CurrentVideoInfo> {
   try {
     const responseDatacomments: Comments[] = []
     const responseDataCurrentVideo: VideoInfo = {} as VideoInfo
 
-    const videoResponse = await gapi
+    const videoResponse: ResponseVideosItems = await gapi
       .get('/videos', {
         params: {
           part: 'snippet,statistics',
@@ -15,7 +21,7 @@ export async function getVideoInfos(id: string): Promise<CurrentVideoInfo> {
       })
       .then(({ data }) => data.items[0])
 
-    const channelInfos = await gapi
+    const channelInfos: ResponseChannelsItems = await gapi
       .get('/channels', {
         params: {
           part: 'snippet,statistics',
@@ -31,23 +37,31 @@ export async function getVideoInfos(id: string): Promise<CurrentVideoInfo> {
     responseDataCurrentVideo.channelName = channelInfos.snippet.title
     responseDataCurrentVideo.channelProfilePicture =
       channelInfos.snippet.thumbnails.default.url
-    responseDataCurrentVideo.viewCount = videoResponse.statistics.viewCount
-    responseDataCurrentVideo.subscriberCount =
+    responseDataCurrentVideo.viewCount = Number(
+      videoResponse.statistics.viewCount
+    )
+    responseDataCurrentVideo.subscriberCount = Number(
       channelInfos.statistics.subscriberCount
-    responseDataCurrentVideo.likeCount = videoResponse.statistics.likeCount
-    responseDataCurrentVideo.commentCount =
+    )
+    responseDataCurrentVideo.likeCount = Number(
+      videoResponse.statistics.likeCount
+    )
+    responseDataCurrentVideo.commentCount = Number(
       videoResponse.statistics.commentCount
+    )
     responseDataCurrentVideo.uploadDate = videoResponse.snippet.publishedAt
 
-    const commentsResponse = await gapi.get('/commentThreads', {
-      params: {
-        part: 'snippet',
-        videoId: id,
-        order: 'relevance'
-      }
-    })
+    const commentsResponse: ResponseCommentsThreads = await gapi
+      .get('/commentThreads', {
+        params: {
+          part: 'snippet',
+          videoId: id,
+          order: 'relevance'
+        }
+      })
+      .then(({ data }) => data)
 
-    commentsResponse.data.items.forEach((comment: any) => {
+    commentsResponse.items.forEach((comment: ResponseCommentsThreadsItems) => {
       const newComment = {
         comment: comment.snippet.topLevelComment.snippet.textDisplay,
         authorProfileImageUrl:

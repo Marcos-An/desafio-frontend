@@ -1,3 +1,4 @@
+import React from 'react'
 import { User } from 'phosphor-react'
 import styles from './avatar.module.scss'
 

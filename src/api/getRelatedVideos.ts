@@ -1,24 +1,48 @@
 import { gapi } from '@api/axios'
 import { VideoInfoTreaded } from '@/types/videos'
+import { ResponseSearch } from '@/types/responseSearch'
+import { ResponseVideos } from '@/types/responseVideos'
+import axios from 'axios'
+import { shuffle } from 'lodash'
 
 export async function getRelatedVideos(
   videoId: string,
-  maxResults: number = 16
+  maxResults: number
 ): Promise<VideoInfoTreaded[]> {
   try {
-    const response = await gapi
-      .get('/search', {
-        params: {
-          relatedToVideoId: videoId,
-          type: 'video',
-          maxResults: maxResults.toString()
+    const params = {
+      relatedToVideoId: videoId,
+      type: 'video',
+      maxResults: (maxResults / 2).toString()
+    }
+    const longParams = {
+      ...params,
+      videoDuration: 'long'
+    }
+    const mediumParams = {
+      ...params,
+      videoDuration: 'medium'
+    }
+
+    const response: ResponseSearch = await axios
+      .all([
+        gapi.get('/search', { params: mediumParams }),
+        gapi.get('/search', { params: longParams })
+      ])
+      .then((responses) => {
+        const longVideos = responses[0].data.items
+        const mediumVideos = responses[1].data.items
+        const allVideos = shuffle(longVideos.concat(mediumVideos))
+
+        return {
+          ...responses[0].data,
+          items: [...allVideos]
         }
       })
-      .then(({ data }) => data)
 
-    const videoIds = response.items.map((item: any) => item.id.videoId)
+    const videoIds = response.items.map((item) => item.id.videoId)
 
-    const videoResponse = await gapi
+    const videoResponse: ResponseVideos = await gapi
       .get('/videos?', {
         params: {
           part: 'snippet,statistics',
@@ -28,11 +52,9 @@ export async function getRelatedVideos(
       })
       .then(({ data }) => data)
 
-    const channelIds = videoResponse.items.map(
-      (item: any) => item.snippet.channelId
-    )
+    const channelIds = videoResponse.items.map((item) => item.snippet.channelId)
 
-    const channelResponse = await gapi
+    const channelResponse: ResponseSearch = await gapi
       .get('/channels', {
         params: {
           part: 'snippet',
@@ -41,20 +63,21 @@ export async function getRelatedVideos(
       })
       .then(({ data }) => data)
 
-    const videoData = videoResponse.items.map((item: any) => {
+    const videoData = videoResponse.items.map((item) => {
       const channelItem = channelResponse.items.find(
-        (channel: any) => channel.id === item.snippet.channelId
+        (channel) => channel.id.toString() === item.snippet.channelId.toString()
       )
-
       return {
         videoId: item.id,
         nextPage: response.nextPageToken,
         channelName: item.snippet.channelTitle,
-        channelProfilePicture: channelItem.snippet.thumbnails.default.url,
+        channelProfilePicture: channelItem?.snippet.thumbnails.default.url
+          ? channelItem.snippet.thumbnails.default.url
+          : '',
         title: item.snippet.title,
         thumbnail: item.snippet.thumbnails.medium.url,
-        views: item.statistics.viewCount,
-        videolikes: item.statistics.likeCount,
+        views: Number(item.statistics.viewCount),
+        videolikes: Number(item.statistics.likeCount),
         uploadDate: item.snippet.publishedAt
       }
     })

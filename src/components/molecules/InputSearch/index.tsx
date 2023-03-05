@@ -1,3 +1,4 @@
+import React from 'react'
 import { getVideosOnSearch } from '@api/getVideosSearch'
 import { onChangeSearch, onChangeHistoric } from '@redux/features/search'
 import {
@@ -120,7 +121,11 @@ export const InputSearch = () => {
           dispatch(onChangeSearch(e.target.value))
         }}
       />
-      <div className={styles.icon} onClick={onSearchVideos}>
+      <div
+        className={styles.icon}
+        onClick={onSearchVideos}
+        data-testid="icon-search"
+      >
         <MagnifyingGlass size={20} />
       </div>
 

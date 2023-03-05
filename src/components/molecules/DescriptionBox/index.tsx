@@ -1,3 +1,4 @@
+import React from 'react'
 import styles from './descriptionBox.module.scss'
 import {
   formatCounter,

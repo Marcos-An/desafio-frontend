@@ -1,8 +1,5 @@
-import {
-  formatDescriptionWithLink,
-  formatVideoDescription,
-  formatVideoTimePosted
-} from '@utils/format'
+import React from 'react'
+import { formatVideoTimePosted } from '@utils/format'
 import Image from 'next/image'
 import { ThumbsUp } from 'phosphor-react'
 import styles from './commentCard.module.scss'

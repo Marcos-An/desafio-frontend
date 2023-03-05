@@ -1,3 +1,4 @@
+import React from 'react'
 import '@/styles/globals.css'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { Header } from '@components/organisms/Header'

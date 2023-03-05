@@ -1,3 +1,4 @@
+import React from 'react'
 import styles from './videoGridContainer.module.scss'
 import { ReactNode } from 'react'
 
