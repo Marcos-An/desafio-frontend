@@ -1,41 +1,61 @@
 # 🏁 Desafio de programação - Vaga Front-End 🏁
 
-**Este teste tem por objetivos principais avaliar:**
+<a href="" target="_blank">
+  <img src="/public/assets/images/banner.png" alt="banner">
+</a> 
+<br> 
+<br>  
 
-- Habilidades no desenvolvimento frontend
-- Conceitos de UI e UX aplicados
+**Desafio** 🚀 🚀 🚀
+ 
+O desafio foi poposto por [ByCoders](https://www.bycoders.co/) e consiste em criar um projeto do youtube, utilizando a [YouTube API](https://developers.google.com/youtube/v3).
 
-****
+Foi criado 3 páginas:
+- Home, com os vídeos em alta no Brasil
+- Página com o vídeo escolhido para assistir com os vídeos relacionados e comentários
+- Página do canal com vídeos filtrados por data de postagem e informações do mesmo  
 
-## Instruções
 
-- Primeiro, faça um fork deste projeto para sua conta no Github (crie uma se você não possuir).
-- Em seguida, implemente o projeto tal qual descrito abaixo, em seu clone local.
-- Por fim, envie via email um arquivo patch para seu contato na Bycoders_.
+  <br/>
+  
+ ## Getting Started
 
-****
+Required Node.Js  ^14
 
-## Desafio 🚀 🚀 🚀
 
-![screen](/image.png)
-
-O desafio consiste em criar um projeto com o design da imagem **acima**, utilizando a [API do YouTube](https://developers.google.com/youtube/v3)
-
-Utilize a [documentação](https://developers.google.com/youtube/v3/docs) para se orientar em como criar uma conta, logar no app, listar os vídeos do usuário, se inscrever em canais, enviar vídeos, ou o que mais você precisar.
-
-O layout da **home** não precisa ser exatamente como o do wireframe. Você pode ficar a vontade para exibir os conteúdos/vídeos que achar melhor, desde que qualquer informação (vídeo, texto, cores, imagens) sejam exibidos de maneira organizada e bem distribuida entre a tela, fornecendo uma boa experiência para o usuário.
-
-**Antes de iniciar o teste**
+**Antes de rodar o projeto**
 1. Crie um projeto no [console de desenvolvedor](https://console.developers.google.com/projectcreate) da **Google**
 2. Ative a [YouTube Data API v3](https://console.developers.google.com/apis/api/youtube.googleapis.com/overview) nele
 3. Crie uma credencial de acesso para que seu app possa se comunicar com a API
+ 
+ 
+ <br/>
 
-**Requisitos esperados na entrega do teste**
+**Executando o projeto**
 
-- [ ] Fornecer um mecanismo para o usuário poder pesquisar vídeos
-- [ ] Possuir home page que exiba algum conteúdo interessante para uma plataforma de vídeos
-- [ ] Fornecer uma estrutura de gerência do estado da aplicação
-- [ ] Possuir histórico das buscas realizadas (persistir localmente)
+- Crie um arquivo chamado `.env.local` apartir do arquivo `.env.example`
+- Atribua a variavel `NEXT_PUBLIC_API_KEY` no arquivo  `.env.local` a chave que você gerou no [console de desenvolvedor](https://console.developers.google.com/projectcreate) 
+- Execute o comando `yarn` ou `npm install` para instalar as dependencias
+- Execute  o comando `yarn run dev` ou `npm run dev` para rodar o projeto
+
+
+**Executando os testes**
+
+Após toda a instalação de dependencias e configurado sua chave de API, você pode rodar os testes.
+Aqui temos dois testes, o e2e com `cypress` e unitário com `Jest`
+
+
+- Execute os testes do `cypess` com o comando `yarn run cypress` ou `npm run cypress`
+- Execute os testes do `Jes` com o comando `yarn run jest` ou `npm run jest`
+
+
+
+**Requisitos do desafio**
+
+- [x] Fornecer um mecanismo para o usuário poder pesquisar vídeos
+- [x] Possuir home page que exiba algum conteúdo interessante para uma plataforma de vídeos
+- [x] Fornecer uma estrutura de gerência do estado da aplicação
+- [x] Possuir histórico das buscas realizadas (persistir localmente)
 
 **Requisitos extras** 
 
