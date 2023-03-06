@@ -18,6 +18,18 @@ Foi criado 3 páginas:
 
   <br/>
   
+## Tecnologias utilizadas
+
+- ⚡ [Next.js](https://nextjs.org)como framework principal
+- 🔥 Desenvolvido com [TypeScript](https://www.typescriptlang.org)
+- 📏 Linter Com [ESLint](https://eslint.org) (configuração STANDARD)
+- 🌈 Code Formatter com [Prettier](https://prettier.io)
+- 🗂 Absolute Imports usando `@` prefix (ALIAS configurado)
+- 🤖 Teste automatizados com [Jest](https://jestjs.io/pt-BR/) e [Cypress](https://www.cypress.io/)
+- ⚛ [Redux](https://redux.js.org/) para a gerencia de estados
+
+<br/>
+  
  ## Getting Started
 
 Required Node.Js  ^14
