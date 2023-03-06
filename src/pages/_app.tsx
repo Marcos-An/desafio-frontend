@@ -7,10 +7,13 @@ import type { AppProps } from 'next/app'
 import { Noto_Sans } from 'next/font/google'
 import { Provider } from 'react-redux'
 import { SkeletonTheme } from 'react-loading-skeleton'
+import { setDefaultOptions } from 'date-fns'
+import { ptBR } from 'date-fns/locale'
 
 const noto = Noto_Sans({ subsets: ['latin'], weight: ['400', '700', '300'] })
 
 export default function App({ Component, pageProps }: AppProps) {
+  setDefaultOptions({ locale: ptBR })
   return (
     <Provider store={store}>
       <SkeletonTheme baseColor="#313131" highlightColor="#525252">
