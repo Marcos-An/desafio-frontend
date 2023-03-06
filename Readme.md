@@ -20,7 +20,7 @@ Foi criado 3 páginas:
   
 ## Tecnologias utilizadas
 
-- ⚡ [Next.js](https://nextjs.org)como framework principal
+- ⚡ [Next.js](https://nextjs.org) como framework principal
 - 🔥 Desenvolvido com [TypeScript](https://www.typescriptlang.org)
 - 📏 Linter Com [ESLint](https://eslint.org) (configuração STANDARD)
 - 🌈 Code Formatter com [Prettier](https://prettier.io)
