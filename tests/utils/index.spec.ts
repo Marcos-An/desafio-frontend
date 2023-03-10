@@ -16,7 +16,7 @@ describe('Utils tests', () => {
 
     it('should return the number smaller then 1000000 formated', () => {
       expect(formatCounter(1900)).toEqual('1,9 mil')
-      expect(formatCounter(2000)).toEqual('2 mil')
+      expect(formatCounter(2000)).toEqual('2,0 mil')
       expect(formatCounter(1000000)).toEqual('1 mi')
     })
   })

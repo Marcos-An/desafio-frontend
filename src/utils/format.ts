@@ -4,8 +4,7 @@ import {
   differenceInMinutes,
   differenceInMonths,
   differenceInSeconds,
-  differenceInYears,
-  parse
+  differenceInYears
 } from 'date-fns'
 
 export function formatCounter(num: number): string {
@@ -13,12 +12,8 @@ export function formatCounter(num: number): string {
     return num.toString()
   }
 
-  if (num < 1999) {
+  if (num < 999999) {
     return `${(num / 1000).toFixed(1)} mil`.replace('.', ',')
-  }
-
-  if (num < 19999) {
-    return `${(num / 1000).toFixed(0)} mil`.replace('.', ',')
   }
 
   return `${(num / 1000000).toFixed(0)} mi`.replace('.', ',')
@@ -56,7 +51,7 @@ export function formatDate(dateString: string): string {
 }
 
 export function formatVideoTimePosted(date: string): string {
-  const publishedAt = parse(date, 'dd/MM/yyyy', new Date())
+  const publishedAt = new Date(date)
   const now = new Date()
 
   if (publishedAt > now) {
